@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: deepsearch-tools
+  ai:
+    openai:
+      api-key: ${CHAT_TOKEN}
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
+app:
+  yandex:
+    api:
+      token: ${YANDEX_TOKEN}

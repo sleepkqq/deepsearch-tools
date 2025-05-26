@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Callback</title>
+</head>
+<body>
+<h1>Токен получен!</h1>
+<p id="token-info">Ожидание...</p>
+
+<script>
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  const token = params.get('access_token') || params.get('token');
+
+  if (token) {
+    document.getElementById('token-info').textContent = 'Токен: ' + token;
+    // Теперь можешь использовать его для запросов к API Диска
+    console.log('OAuth Token:', token);
+  } else {
+    document.getElementById('token-info').textContent = 'Токен не найден.';
+  }
+</script>
+</body>
+</html>

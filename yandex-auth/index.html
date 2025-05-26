@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yandex OAuth</title>
+  <script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js "></script>
+</head>
+<body>
+<h1>Вход через Яндекс</h1>
+<div id="buttonContainerId"></div>
+
+<script>
+  window.YaAuthSuggest.init(
+    {
+      client_id: "3257cda9b50246c4a76c6cf09217fe2f",
+      response_type: "token",
+      redirect_uri: "http://localhost:8000/callback.html"
+    },
+    "http://localhost:8000",
+    {
+      view: "button",
+      parentId: "buttonContainerId",
+      buttonSize: 'm',
+      buttonView: 'main',
+      buttonTheme: 'light',
+      buttonBorderRadius: "0",
+      buttonIcon: 'ya',
+    }
+  )
+  .then(({ handler }) => handler())
+  .then(data => {
+    console.log('Получили данные:', data);
+    // Перенаправляем на callback с токеном в URL
+    window.location.href = `/callback.html#token=${data.access_token}`;
+  })
+  .catch(error => console.error('Ошибка авторизации:', error));
+</script>
+</body>
+</html>
