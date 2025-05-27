@@ -2,12 +2,14 @@ spring:
   application:
     name: deepsearch-tools
   ai:
-    openai:
-      api-key: ${CHAT_TOKEN}
-      base-url: https://api.deepseek.com
-      chat:
-        options:
-          model: deepseek-chat
+    mcp:
+      server:
+        enabled: true
+        name: deepsearch-tools
+        version: 0.0.1
+        type: sync
+        sse-endpoint: /api/v1/sse
+        sse-message-endpoint: /api/v1/mcp
 app:
   yandex:
     api:
