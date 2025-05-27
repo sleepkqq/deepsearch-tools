@@ -13,7 +13,7 @@ class ApplicationTests {
 
   @Test
   void contextLoads() {
-    yandexDiskService.fetchMediaFilesByMediaType("image")
+    yandexDiskService.fetchFilesByMediaType("image")
         .forEach(System.out::println);
   }
 }

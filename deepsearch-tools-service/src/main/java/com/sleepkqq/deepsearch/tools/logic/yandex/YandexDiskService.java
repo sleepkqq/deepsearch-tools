@@ -3,7 +3,7 @@ package com.sleepkqq.deepsearch.tools.logic.yandex;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sleepkqq.deepsearch.tools.config.api.YandexConfig;
-import com.sleepkqq.deepsearch.tools.model.MediaFile;
+import com.sleepkqq.deepsearch.tools.model.File;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +24,15 @@ public class YandexDiskService {
   private final ObjectMapper objectMapper;
   private final YandexConfig yandexConfig;
 
-  public List<MediaFile> fetchAllMediaFiles() {
-    return fetchAllMediaFiles(Optional.empty());
+  public List<File> fetchAllFiles() {
+    return fetchAllFiles(Optional.empty());
   }
 
-  public List<MediaFile> fetchMediaFilesByMediaType(String mediaType) {
-    return fetchAllMediaFiles(Optional.of(mediaType));
+  public List<File> fetchFilesByMediaType(String mediaType) {
+    return fetchAllFiles(Optional.of(mediaType));
   }
 
-  private List<MediaFile> fetchAllMediaFiles(Optional<String> mediaType) {
+  private List<File> fetchAllFiles(Optional<String> mediaType) {
     var response = getRequest(
         "https://cloud-api.yandex.net/v1/disk/resources/files"
             + mediaType.map(m -> "?media_type=" + m)
@@ -40,7 +40,7 @@ public class YandexDiskService {
     );
     var jsonNode = toJsonNode(response.getBody());
     return StreamEx.of(jsonNode.path("items").elements())
-        .map(e -> new MediaFile(
+        .map(e -> new File(
             e.path("text").asText(),
             e.path("file").asText(),
             e.path("media_type").asText(),
